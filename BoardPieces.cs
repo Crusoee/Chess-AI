@@ -5,6 +5,8 @@ namespace Chess_AI
 {
     public abstract class BoardPiece
     {
+        // Achievements
+
         string[] alphabet = { "a", "b", "c", "d", "e", "f", "g", "h" };
         string[] numbers = { "1", "2", "3", "4", "5", "6", "7", "8" };
 
@@ -12,6 +14,10 @@ namespace Chess_AI
         protected Dictionary<int, string> inverseAllPositions;
 
         protected UserInterface userInterface = new UserInterface();
+
+        public int movementCount = 0;
+        public int captureCount = 0;
+
         public BoardPiece()
         {
 
@@ -56,7 +62,6 @@ namespace Chess_AI
 
         public override string move(string moveFrom, string moveTo, Dictionary<string, BoardPiece> squarePositions, bool allMoves = false, bool check = false)
         {
-
             if (firstMove && (allPositions[moveTo] - allPositions[moveFrom] == 1 ||
                 allPositions[moveTo] - allPositions[moveFrom] == 2) && 
                 squarePositions[moveTo].PieceType == "Empty")
@@ -66,6 +71,7 @@ namespace Chess_AI
                 {
                     firstMove = false;
                 }
+                this.movementCount += 1;
                 return "Moving";
             }
             else if (allPositions[moveTo] - allPositions[moveFrom] == 1 &&
@@ -73,6 +79,7 @@ namespace Chess_AI
             {
                 userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
                 //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {moveTo}");
+                this.movementCount += 1;
                 return "Moving";
             }
             else if ((allPositions[moveTo] - allPositions[moveFrom] == 9 ||
@@ -82,6 +89,8 @@ namespace Chess_AI
             {
                 userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
                 //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {squarePositions[moveTo].Color} {squarePositions[moveTo].PieceType}: {moveTo}");
+                this.movementCount += 1;
+                this.captureCount += 1;
                 return "Attacking";
             }
             else
@@ -141,12 +150,15 @@ namespace Chess_AI
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {squarePositions[moveTo].Color} {squarePositions[moveTo].PieceType}: {moveTo}");
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {moveTo}");
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -186,12 +198,15 @@ namespace Chess_AI
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {squarePositions[moveTo].Color} {squarePositions[moveTo].PieceType}: {moveTo}");
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {moveTo}");
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -230,12 +245,15 @@ namespace Chess_AI
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {squarePositions[moveTo].Color} {squarePositions[moveTo].PieceType}: {moveTo}");
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {moveTo}");
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -252,12 +270,15 @@ namespace Chess_AI
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {squarePositions[moveTo].Color} {squarePositions[moveTo].PieceType}: {moveTo}");
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {moveTo}");
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -274,12 +295,15 @@ namespace Chess_AI
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {squarePositions[moveTo].Color} {squarePositions[moveTo].PieceType}: {moveTo}");
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {moveTo}");
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -296,12 +320,15 @@ namespace Chess_AI
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {squarePositions[moveTo].Color} {squarePositions[moveTo].PieceType}: {moveTo}");
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {moveTo}");
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -362,11 +389,14 @@ namespace Chess_AI
                 if (squarePositions[moveTo].PieceType != "Empty")
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -405,11 +435,14 @@ namespace Chess_AI
                 if (squarePositions[moveTo].PieceType != "Empty")
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
                     return "Moving";
                 }
 
@@ -430,37 +463,37 @@ namespace Chess_AI
             this.pieceType = "king";
         }
 
-        private bool avoidCheck(Dictionary<string, BoardPiece> squarePositions, string moveTo, string moveFrom)
-        {
-            if (squarePositions[moveTo].PieceType == "Empty")
-            {
-                squarePositions[moveTo] = new King(this.color, this.allPositions, this.inverseAllPositions);
-                foreach (string square1 in squarePositions.Keys)
-                {
-                    if (squarePositions[square1].Color != this.color && squarePositions[square1].PieceType != "Empty")
-                    {
-                        if (squarePositions[square1].move(square1, moveTo, squarePositions: squarePositions, allMoves: true, check: true) == "Attacking")
-                        {
-                            squarePositions[moveTo] = new Empty();
-                            return false;
-                        }
-                    }
-                }
+        //private bool avoidCheck(Dictionary<string, BoardPiece> squarePositions, string moveTo, string moveFrom)
+        //{
+        //    if (squarePositions[moveTo].PieceType == "Empty")
+        //    {
+        //        squarePositions[moveTo] = new King(this.color, this.allPositions, this.inverseAllPositions);
+        //        foreach (string square1 in squarePositions.Keys)
+        //        {
+        //            if (squarePositions[square1].Color != this.color && squarePositions[square1].PieceType != "Empty")
+        //            {
+        //                if (squarePositions[square1].move(square1, moveTo, squarePositions: squarePositions, allMoves: true, check: true) == "Attacking")
+        //                {
+        //                    squarePositions[moveTo] = new Empty();
+        //                    return false;
+        //                }
+        //            }
+        //        }
 
-            }
-            squarePositions[moveTo] = new Empty();
-            return true;
-        }
+        //    }
+        //    squarePositions[moveTo] = new Empty();
+        //    return true;
+        //}
 
         public override string move(string moveFrom, string moveTo, Dictionary<string, BoardPiece> squarePositions, bool allMoves = false, bool check = false)
         {
-            if (check == false)
-            {
-                if (avoidCheck(squarePositions, moveTo, moveFrom) == false)
-                {
-                    return "Check";
-                }
-            }
+            //if (check == false)
+            //{
+            //    if (avoidCheck(squarePositions, moveTo, moveFrom) == false)
+            //    {
+            //        return "Check";
+            //    }
+            //}
             // up
             if (allPositions[moveTo] - allPositions[moveFrom] == 1 && squarePositions[moveTo].Color != this.color &&
                 allPositions[moveTo] % 8 != 0)
@@ -468,11 +501,14 @@ namespace Chess_AI
                 if (squarePositions[moveTo].PieceType != "Empty")
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -483,11 +519,14 @@ namespace Chess_AI
                 if (squarePositions[moveTo].PieceType != "Empty")
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -499,11 +538,14 @@ namespace Chess_AI
                 if (squarePositions[moveTo].PieceType != "Empty")
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -515,11 +557,14 @@ namespace Chess_AI
                 if (squarePositions[moveTo].PieceType != "Empty")
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -531,11 +576,14 @@ namespace Chess_AI
                 if (squarePositions[moveTo].PieceType != "Empty")
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 } 
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -548,11 +596,14 @@ namespace Chess_AI
                 if (squarePositions[moveTo].PieceType != "Empty")
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -565,11 +616,14 @@ namespace Chess_AI
                 if (squarePositions[moveTo].PieceType != "Empty")
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -580,11 +634,14 @@ namespace Chess_AI
                 if (squarePositions[moveTo].PieceType != "Empty")
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -643,12 +700,15 @@ namespace Chess_AI
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {squarePositions[moveTo].Color} {squarePositions[moveTo].PieceType}: {moveTo}");
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {moveTo}");
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -688,12 +748,15 @@ namespace Chess_AI
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {squarePositions[moveTo].Color} {squarePositions[moveTo].PieceType}: {moveTo}");
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
                     //Console.WriteLine($"{squarePositions[moveFrom].Color} {squarePositions[moveFrom].PieceType}: {moveFrom} -> {moveTo}");
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -731,11 +794,14 @@ namespace Chess_AI
                 if (squarePositions[moveTo].PieceType != "Empty")
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }
@@ -774,11 +840,14 @@ namespace Chess_AI
                 if (squarePositions[moveTo].PieceType != "Empty")
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, attacking: true, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
+                    this.captureCount += 1;
                     return "Attacking";
                 }
                 else
                 {
                     userInterface.writeToConsole(squarePositions, allPositions, inverseAllPositions, moveFrom, moveTo, allMoves: allMoves, check: check);
+                    this.movementCount += 1;
                     return "Moving";
                 }
             }

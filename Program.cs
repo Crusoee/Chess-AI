@@ -31,7 +31,7 @@ Console.WriteLine("______________________________________");
 Board board = new Board(color, color2);
 
 while (true) {
-    
+  
     board.movePiece();
 
     board.flipBoard1();

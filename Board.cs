@@ -19,10 +19,10 @@ namespace Chess_AI
         public Dictionary<string, BoardPiece> squarePositions = new Dictionary<string, BoardPiece>();
         public Dictionary<string, BoardPiece> squarePositionsInverse = new Dictionary<string, BoardPiece>();
 
-        protected Dictionary<string, int> allPositions = new Dictionary<string, int>();
-        protected Dictionary<int, string> inverseAllPositions = new Dictionary<int, string>();
-        protected Dictionary<string, int> allPositions2 = new Dictionary<string, int>();
-        protected Dictionary<int, string> inverseAllPositions2 = new Dictionary<int, string>();
+        public Dictionary<string, int> allPositions = new Dictionary<string, int>();
+        public Dictionary<int, string> inverseAllPositions = new Dictionary<int, string>();
+        public Dictionary<string, int> allPositions2 = new Dictionary<string, int>();
+        public Dictionary<int, string> inverseAllPositions2 = new Dictionary<int, string>();
 
         public Board(string color1, string color2)
             // setting up the board
@@ -166,9 +166,19 @@ namespace Chess_AI
                 Console.WriteLine($"All possible moves for {squarePositions[selectedPiece].PieceType}: ");
                 allPossibleMoves(selectedPiece, selectedPiece);
             }
+            else if (moveTo == "/captures")
+            {
+                Console.WriteLine($"Has {squarePositions[selectedPiece].captureCount} captures!");
+            }
+            else if (moveTo == "/moves")
+            {
+                Console.WriteLine($"Has {squarePositions[selectedPiece].movementCount} moves! ");
+            }
             else if (moveTo == "/help")
             {
-                Console.WriteLine("/all moves -> shows squares selected board piece may advance to\n");
+                Console.WriteLine("/all moves -> shows squares selected board piece may advance to");
+                Console.WriteLine("/captures -> shows all captures for selected piece");
+                Console.WriteLine("/moves -> shows all moves for selected piece");
             }
             else
             {
@@ -211,6 +221,10 @@ namespace Chess_AI
                             {
                                 commands2(moveTo, selectedPiece);
                             }
+                            else if (squarePositions[selectedPiece].PieceType == "king" && moveTo == "e4")
+                            {
+                                Console.WriteLine("Nooo!!!!");
+                            }
                             else if (squarePositions.ContainsKey(moveTo))
                             {
                                 string mayMove = squarePositions[selectedPiece].move(selectedPiece, moveTo, squarePositions);
@@ -236,6 +250,8 @@ namespace Chess_AI
                 }
             }
 
+            //avoidCheck(squarePositions, color2, allPositions, inverseAllPositions);
+
             if (this.color == color1)
             {
                 this.color = color2;
@@ -248,6 +264,7 @@ namespace Chess_AI
             {
                 Console.WriteLine(" ! Error? Color Mismatch? ");
             }
+
 
             Console.WriteLine("______________________________________");
         }
@@ -312,6 +329,8 @@ namespace Chess_AI
                 }
             }
 
+            //avoidCheck(squarePositions, color1, allPositions2, inverseAllPositions2);
+
             if (this.color == color1)
             {
                 this.color = color2;
@@ -343,7 +362,28 @@ namespace Chess_AI
             }
         }
 
+        public void avoidCheck(Dictionary<string, BoardPiece> board, string oppositeColor, Dictionary<string, int> allPositions, Dictionary<int, string> allPositionsInverse)
+        {
+            List<string> checkSquares = new List<string>();
 
+            foreach (string key in board.Keys)
+            {
+                var newBoard = board.ToDictionary(entry => entry.Key, entry => entry.Value);
+
+                newBoard[key] = new King(oppositeColor, allPositions, allPositionsInverse);
+
+                foreach (string key2 in board.Keys)
+                {
+                    if (newBoard[key2].Color == oppositeColor && newBoard[key2].move(key2, key, newBoard, allMoves: true) == "attacking")
+                    {
+                        Console.WriteLine("yup");
+                        checkSquares.Add(key2);
+                    }
+                }
+            }
+            Console.WriteLine(checkSquares.Count());
+            Console.WriteLine(string.Join(",", checkSquares));
+        }
 
         private void allPossibleMoves(string selectedPiece, string squarePosition)
         {
