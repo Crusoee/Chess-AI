@@ -24,6 +24,8 @@ namespace Chess_AI
         public Dictionary<string, int> allPositions2 = new Dictionary<string, int>();
         public Dictionary<int, string> inverseAllPositions2 = new Dictionary<int, string>();
 
+        List<string> kingCantMoveHere = new List<string>();
+
         public Board(string color1, string color2)
             // setting up the board
         {
@@ -71,41 +73,41 @@ namespace Chess_AI
 
             // setting up white board pieces
 
-            squarePositions["a1"] = (new Rook("white", allPositions, inverseAllPositions));
-            squarePositions["h1"] = (new Rook("white", allPositions, inverseAllPositions));
-            squarePositions["b1"] = (new Knight("white", allPositions, inverseAllPositions));
-            squarePositions["g1"] = (new Knight("white", allPositions, inverseAllPositions));
-            squarePositions["c1"] = (new Bishop("white", allPositions, inverseAllPositions));
-            squarePositions["f1"] = (new Bishop("white", allPositions, inverseAllPositions));
+            //squarePositions["a1"] = (new Rook("white", allPositions, inverseAllPositions));
+            //squarePositions["h1"] = (new Rook("white", allPositions, inverseAllPositions));
+            //squarePositions["b1"] = (new Knight("white", allPositions, inverseAllPositions));
+            //squarePositions["g1"] = (new Knight("white", allPositions, inverseAllPositions));
+            //squarePositions["c1"] = (new Bishop("white", allPositions, inverseAllPositions));
+            //squarePositions["f1"] = (new Bishop("white", allPositions, inverseAllPositions));
             squarePositions["e1"] = (new King("white", allPositions, inverseAllPositions));
-            squarePositions["d1"] = (new Queen("white", allPositions, inverseAllPositions));
-            squarePositions["a2"] = (new Pawn("white", allPositions, inverseAllPositions));
-            squarePositions["b2"] = (new Pawn("white", allPositions, inverseAllPositions));
-            squarePositions["c2"] = (new Pawn("white", allPositions, inverseAllPositions));
-            squarePositions["d2"] = (new Pawn("white", allPositions, inverseAllPositions));
-            squarePositions["e2"] = (new Pawn("white", allPositions, inverseAllPositions));
-            squarePositions["f2"] = (new Pawn("white", allPositions, inverseAllPositions));
-            squarePositions["g2"] = (new Pawn("white", allPositions, inverseAllPositions));
-            squarePositions["h2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["d1"] = (new Queen("white", allPositions, inverseAllPositions));
+            //squarePositions["a2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["b2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["c2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["d2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["e2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["f2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["g2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["h2"] = (new Pawn("white", allPositions, inverseAllPositions));
 
             // setting up black board pieces
 
             squarePositions["a8"] = (new Rook("black", allPositions2,inverseAllPositions2));
-            squarePositions["h8"] = (new Rook("black", allPositions2, inverseAllPositions2));
-            squarePositions["b8"] = (new Knight("black", allPositions2, inverseAllPositions2));
-            squarePositions["g8"] = (new Knight("black", allPositions2, inverseAllPositions2));
-            squarePositions["c8"] = (new Bishop("black", allPositions2, inverseAllPositions2));
+            //squarePositions["h8"] = (new Rook("black", allPositions2, inverseAllPositions2));
+            //squarePositions["b8"] = (new Knight("black", allPositions2, inverseAllPositions2));
+            //squarePositions["g8"] = (new Knight("black", allPositions2, inverseAllPositions2));
+            //squarePositions["c8"] = (new Bishop("black", allPositions2, inverseAllPositions2));
             squarePositions["f8"] = (new Bishop("black", allPositions2, inverseAllPositions2));
-            squarePositions["e8"] = (new King("black", allPositions2, inverseAllPositions2));
-            squarePositions["d8"] = (new Queen("black", allPositions2, inverseAllPositions2));
+            //squarePositions["e8"] = (new King("black", allPositions2, inverseAllPositions2));
+            //squarePositions["d8"] = (new Queen("black", allPositions2, inverseAllPositions2));
             squarePositions["a7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
-            squarePositions["b7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
-            squarePositions["c7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
-            squarePositions["d7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
-            squarePositions["e7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
-            squarePositions["f7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
-            squarePositions["g7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
-            squarePositions["h7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["b7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["c7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["d7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["e7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["f7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["g7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["h7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
         }
 
         public void commands(string selectedPiece)
@@ -188,6 +190,16 @@ namespace Chess_AI
 
         public void movePiece()
         {
+            bool inCheck = false;
+            foreach (string key in squarePositions.Keys)
+            {
+                if (squarePositions[key].PieceType == "king" && squarePositions[key].Color == color1 && kingCantMoveHere.Contains(key))
+                {
+                    Console.WriteLine($" ! Your king is in check! at {key}");
+                    inCheck = true;
+                    break;
+                }
+            }
             bool finishedTurn = false;
             Console.WriteLine($"{this.color}'s turn");
             while (!finishedTurn)
@@ -221,9 +233,11 @@ namespace Chess_AI
                             {
                                 commands2(moveTo, selectedPiece);
                             }
-                            else if (squarePositions[selectedPiece].PieceType == "king" && moveTo == "e4")
+                            else if (squarePositionsInverse[selectedPiece].PieceType == "king" && kingCantMoveHere.Contains(moveTo))
                             {
-                                Console.WriteLine("Nooo!!!!");
+                                Console.WriteLine($" ! Invalid move for {squarePositionsInverse[selectedPiece].PieceType}: {selectedPiece} -> {moveTo}\n"
+                                    + "Reason: In check!");
+                                break;
                             }
                             else if (squarePositions.ContainsKey(moveTo))
                             {
@@ -250,7 +264,7 @@ namespace Chess_AI
                 }
             }
 
-            //avoidCheck(squarePositions, color2, allPositions, inverseAllPositions);
+            avoidCheck(squarePositions, color2, color1, allPositions, inverseAllPositions);
 
             if (this.color == color1)
             {
@@ -271,6 +285,16 @@ namespace Chess_AI
 
         public void movePiece2()
         {
+            bool inCheck = false;
+            foreach (string key in squarePositions.Keys)
+            {
+                if (squarePositions[key].PieceType == "king" && squarePositions[key].Color == color1 && kingCantMoveHere.Contains(key))
+                {
+                    Console.WriteLine($" ! Your king is in check! at {key}");
+                    inCheck = true;
+                    break;
+                }
+            }
             bool finishedTurn = false;
             Console.WriteLine($"{this.color}'s turn");
             while (!finishedTurn)
@@ -304,6 +328,12 @@ namespace Chess_AI
                             {
                                 commands2(moveTo, selectedPiece);
                             }
+                            else if (squarePositionsInverse[selectedPiece].PieceType == "king" && kingCantMoveHere.Contains(moveTo))
+                            {
+                                Console.WriteLine($" ! Invalid move for {squarePositionsInverse[selectedPiece].PieceType}: {selectedPiece} -> {moveTo}\n"
+                                    + "Reason: In check!");
+                                break;
+                            }
                             else if (squarePositionsInverse.ContainsKey(moveTo))
                             {
                                 string mayMove = squarePositionsInverse[selectedPiece].move(selectedPiece, moveTo, squarePositionsInverse);
@@ -329,7 +359,7 @@ namespace Chess_AI
                 }
             }
 
-            //avoidCheck(squarePositions, color1, allPositions2, inverseAllPositions2);
+            avoidCheck(squarePositionsInverse, color1, color2, allPositions2, inverseAllPositions2);
 
             if (this.color == color1)
             {
@@ -362,7 +392,7 @@ namespace Chess_AI
             }
         }
 
-        public void avoidCheck(Dictionary<string, BoardPiece> board, string oppositeColor, Dictionary<string, int> allPositions, Dictionary<int, string> allPositionsInverse)
+        public void avoidCheck(Dictionary<string, BoardPiece> board, string oppositeColor, string color, Dictionary<string, int> allPositions, Dictionary<int, string> allPositionsInverse)
         {
             List<string> checkSquares = new List<string>();
 
@@ -370,19 +400,26 @@ namespace Chess_AI
             {
                 var newBoard = board.ToDictionary(entry => entry.Key, entry => entry.Value);
 
+                foreach (string key2 in newBoard.Keys)
+                {
+                    if (newBoard[key2].PieceType == "king" && newBoard[key2].Color == oppositeColor)
+                    {
+                        newBoard[key2] = new Empty();
+                    }
+                }
+
                 newBoard[key] = new King(oppositeColor, allPositions, allPositionsInverse);
 
-                foreach (string key2 in board.Keys)
+                foreach (string key2 in newBoard.Keys)
                 {
-                    if (newBoard[key2].Color == oppositeColor && newBoard[key2].move(key2, key, newBoard, allMoves: true) == "attacking")
+                    if (newBoard[key2].Color == color && newBoard[key2].move(key2, key, newBoard, allMoves: true, check: true) == "Attacking")
                     {
-                        Console.WriteLine("yup");
-                        checkSquares.Add(key2);
+                        checkSquares.Add(key);
                     }
                 }
             }
-            Console.WriteLine(checkSquares.Count());
-            Console.WriteLine(string.Join(",", checkSquares));
+
+            kingCantMoveHere = checkSquares;
         }
 
         private void allPossibleMoves(string selectedPiece, string squarePosition)

@@ -20,7 +20,7 @@ namespace Chess_AI
             {
                 if (check)
                 {
-                    Console.WriteLine($"! Cannot enter into check at {moveTo}");
+                    return;
                 }
                 else if (!cantMoveThere)
                 {
