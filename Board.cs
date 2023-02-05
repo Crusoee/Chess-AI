@@ -25,6 +25,8 @@ namespace Chess_AI
         public Dictionary<int, string> inverseAllPositions2 = new Dictionary<int, string>();
 
         List<string> kingCantMoveHere = new List<string>();
+        List<string> kingCantMoveHereTemp = new List<string>();
+
 
         public Board(string color1, string color2)
             // setting up the board
@@ -74,40 +76,40 @@ namespace Chess_AI
             // setting up white board pieces
 
             squarePositions["a1"] = (new Rook("white", allPositions, inverseAllPositions));
-            squarePositions["h1"] = (new Rook("white", allPositions, inverseAllPositions));
-            squarePositions["b1"] = (new Knight("white", allPositions, inverseAllPositions));
-            squarePositions["g1"] = (new Knight("white", allPositions, inverseAllPositions));
-            squarePositions["c1"] = (new Bishop("white", allPositions, inverseAllPositions));
+            //squarePositions["h1"] = (new Rook("white", allPositions, inverseAllPositions));
+            //squarePositions["b1"] = (new Knight("white", allPositions, inverseAllPositions));
+            //squarePositions["g1"] = (new Knight("white", allPositions, inverseAllPositions));
+            //squarePositions["c1"] = (new Bishop("white", allPositions, inverseAllPositions));
             squarePositions["f1"] = (new Bishop("white", allPositions, inverseAllPositions));
             squarePositions["e1"] = (new King("white", allPositions, inverseAllPositions));
             squarePositions["d1"] = (new Queen("white", allPositions, inverseAllPositions));
-            squarePositions["a2"] = (new Pawn("white", allPositions, inverseAllPositions));
-            squarePositions["b2"] = (new Pawn("white", allPositions, inverseAllPositions));
-            squarePositions["c2"] = (new Pawn("white", allPositions, inverseAllPositions));
-            squarePositions["d2"] = (new Pawn("white", allPositions, inverseAllPositions));
-            squarePositions["e2"] = (new Pawn("white", allPositions, inverseAllPositions));
-            squarePositions["f2"] = (new Pawn("white", allPositions, inverseAllPositions));
-            squarePositions["g2"] = (new Pawn("white", allPositions, inverseAllPositions));
-            squarePositions["h2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["a2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["b2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["c2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["d2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["e2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["f2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["g2"] = (new Pawn("white", allPositions, inverseAllPositions));
+            //squarePositions["h2"] = (new Pawn("white", allPositions, inverseAllPositions));
 
             // setting up black board pieces
 
             squarePositions["a8"] = (new Rook("black", allPositions2, inverseAllPositions2));
-            squarePositions["h8"] = (new Rook("black", allPositions2, inverseAllPositions2));
-            squarePositions["b8"] = (new Knight("black", allPositions2, inverseAllPositions2));
-            squarePositions["g8"] = (new Knight("black", allPositions2, inverseAllPositions2));
+            //squarePositions["h8"] = (new Rook("black", allPositions2, inverseAllPositions2));
+            //squarePositions["b8"] = (new Knight("black", allPositions2, inverseAllPositions2));
+            //squarePositions["g8"] = (new Knight("black", allPositions2, inverseAllPositions2));
             squarePositions["c8"] = (new Bishop("black", allPositions2, inverseAllPositions2));
-            squarePositions["f8"] = (new Bishop("black", allPositions2, inverseAllPositions2));
+            //squarePositions["f8"] = (new Bishop("black", allPositions2, inverseAllPositions2));
             squarePositions["e8"] = (new King("black", allPositions2, inverseAllPositions2));
             squarePositions["d8"] = (new Queen("black", allPositions2, inverseAllPositions2));
-            squarePositions["a7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
-            squarePositions["b7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
-            squarePositions["c7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
-            squarePositions["d7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
-            squarePositions["e7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
-            squarePositions["f7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
-            squarePositions["g7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
-            squarePositions["h7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["a7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["b7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["c7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["d7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["e7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["f7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["g7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
+            //squarePositions["h7"] = (new Pawn("black", allPositions2, inverseAllPositions2));
         }
 
         public void commands(string selectedPiece)
@@ -210,31 +212,7 @@ namespace Chess_AI
 
                 Console.WriteLine(" - Select a board piece:");
 
-                while (true)
-                {
-                    selectedPiece = userInterface.getUserInput();
-
-                    if (selectedPiece.Contains('/'))
-                    {
-                        break;
-                    }
-                    else if (!squarePositions.ContainsKey(selectedPiece))
-                    {
-                        Console.WriteLine("! Invalid square position");
-                    }
-                    else if (inCheck == true && squarePositions[selectedPiece].PieceType == "king")
-                    {
-                        break;
-                    }
-                    else if (inCheck == false)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"You must select your king at {kingsSquare}!");
-                    }
-                }
+                selectedPiece = userInterface.getUserInput();
 
                 if (selectedPiece.Contains('/'))
                 {
@@ -262,22 +240,49 @@ namespace Chess_AI
                             {
                                 commands2(moveTo, selectedPiece);
                             }
-                            else if (squarePositionsInverse[selectedPiece].PieceType == "king" && kingCantMoveHere.Contains(moveTo))
+                            else if (squarePositions[selectedPiece].PieceType == "king" && kingCantMoveHere.Contains(moveTo))
                             {
-                                Console.WriteLine($" ! Invalid move for {squarePositionsInverse[selectedPiece].PieceType}: {selectedPiece} -> {moveTo}\n"
+                                Console.WriteLine($" ! Invalid move for {squarePositions[selectedPiece].PieceType}: {selectedPiece} -> {moveTo}\n"
                                     + "Reason: In check!");
                                 break;
                             }
                             else if (squarePositions.ContainsKey(moveTo))
                             {
-                                string mayMove = squarePositions[selectedPiece].move(selectedPiece, moveTo, squarePositions);
-                                if (mayMove == "Attacking" || mayMove == "Moving")
+                                if (!inCheck)
                                 {
-                                    squarePositions[moveTo] = squarePositions[selectedPiece];
-                                    squarePositions[selectedPiece] = new Empty();
-                                    finishedTurn = true;
+                                    string mayMove = squarePositions[selectedPiece].move(selectedPiece, moveTo, squarePositions);
+                                    if (mayMove == "Attacking" || mayMove == "Moving")
+                                    {
+                                        squarePositions[moveTo] = squarePositions[selectedPiece];
+                                        squarePositions[selectedPiece] = new Empty();
+                                        finishedTurn = true;
+                                    }
+                                    break;
                                 }
-                                break;
+                                else {
+                                    var newBoard = squarePositions.ToDictionary(entry => entry.Key, entry => entry.Value);
+                                    string mayMove = squarePositions[selectedPiece].move(selectedPiece, moveTo, newBoard);
+                                    if (mayMove == "Attacking" || mayMove == "Moving")
+                                    {
+                                        Console.WriteLine(moveTo);
+                                        newBoard[moveTo] = newBoard[selectedPiece];
+                                        newBoard[selectedPiece] = new Empty();
+                                    }
+                                    else {
+                                        break;
+                                    }
+                                    kingCantMoveHereTemp = avoidCheck(newBoard, color1, color2, allPositions, inverseAllPositions);
+                                    if (kingCantMoveHereTemp.Contains(kingsSquare)) {
+                                        Console.WriteLine($"King is still in check at {kingsSquare}");
+                                        break;
+                                    }
+                                    else {
+                                        squarePositions[moveTo] = squarePositions[selectedPiece];
+                                        squarePositions[selectedPiece] = new Empty();
+                                        finishedTurn = true;
+                                        break;
+                                    }
+                                }
                             }
                             else
                             {
@@ -293,7 +298,7 @@ namespace Chess_AI
                 }
             }
 
-            avoidCheck(squarePositions, color2, color1, allPositions, inverseAllPositions);
+            kingCantMoveHere = avoidCheck(squarePositions, color2, color1, allPositions, inverseAllPositions);
 
             if (this.color == color1)
             {
@@ -334,32 +339,7 @@ namespace Chess_AI
 
                 Console.WriteLine(" - Select a board piece:");
 
-                while (true)
-                {
-                    selectedPiece = userInterface.getUserInput();
-
-                    if (selectedPiece.Contains('/'))
-                    {
-                        break;
-                    }
-                    else if (!squarePositions.ContainsKey(selectedPiece))
-                    {
-                        Console.WriteLine("! Invalid square position");
-                    }
-                    else if (inCheck == true && squarePositionsInverse[selectedPiece].PieceType == "king")
-                    {
-                        break;
-                    }
-                    else if (inCheck == false)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"You must select your king at {kingsSquare}!");
-                    }
-                }
-
+                selectedPiece = userInterface.getUserInput();
 
                 if (selectedPiece.Contains('/'))
                 {
@@ -395,14 +375,42 @@ namespace Chess_AI
                             }
                             else if (squarePositionsInverse.ContainsKey(moveTo))
                             {
-                                string mayMove = squarePositionsInverse[selectedPiece].move(selectedPiece, moveTo, squarePositionsInverse);
-                                if (mayMove == "Attacking" || mayMove == "Moving")
+                                if (!inCheck)
                                 {
-                                    squarePositionsInverse[moveTo] = squarePositionsInverse[selectedPiece];
-                                    squarePositionsInverse[selectedPiece] = new Empty();
-                                    finishedTurn = true;
+                                    string mayMove = squarePositionsInverse[selectedPiece].move(selectedPiece, moveTo, squarePositionsInverse);
+                                    if (mayMove == "Attacking" || mayMove == "Moving")
+                                    {
+                                        squarePositionsInverse[moveTo] = squarePositionsInverse[selectedPiece];
+                                        squarePositionsInverse[selectedPiece] = new Empty();
+                                        finishedTurn = true;
+                                    }
+                                    break;
                                 }
-                                break;
+                                else
+                                {
+                                    var newBoard = squarePositionsInverse.ToDictionary(entry => entry.Key, entry => entry.Value);
+                                    string mayMove = squarePositionsInverse[selectedPiece].move(selectedPiece, moveTo, newBoard);
+                                    if (mayMove == "Attacking" || mayMove == "Moving")
+                                    {
+                                        Console.WriteLine(moveTo);
+                                        newBoard[moveTo] = newBoard[selectedPiece];
+                                        newBoard[selectedPiece] = new Empty();
+                                    }
+                                    else {
+                                        break;
+                                    }
+                                    kingCantMoveHereTemp = avoidCheck(newBoard, color2, color1, allPositions2, inverseAllPositions2);
+                                    if (kingCantMoveHereTemp.Contains(kingsSquare)) {
+                                        Console.WriteLine($"King is still in check at {kingsSquare}");
+                                        break;
+                                    }
+                                    else {
+                                        squarePositionsInverse[moveTo] = squarePositionsInverse[selectedPiece];
+                                        squarePositionsInverse[selectedPiece] = new Empty();
+                                        finishedTurn = true;
+                                        break;
+                                    }
+                                }
                             }
                             else
                             {
@@ -418,7 +426,7 @@ namespace Chess_AI
                 }
             }
 
-            avoidCheck(squarePositionsInverse, color1, color2, allPositions2, inverseAllPositions2);
+            kingCantMoveHere = avoidCheck(squarePositionsInverse, color1, color2, allPositions2, inverseAllPositions2);
 
             if (this.color == color1)
             {
@@ -451,7 +459,7 @@ namespace Chess_AI
             }
         }
 
-        public void avoidCheck(Dictionary<string, BoardPiece> board, string oppositeColor, string color, Dictionary<string, int> allPositions, Dictionary<int, string> allPositionsInverse)
+        public List<string> avoidCheck(Dictionary<string, BoardPiece> board, string oppositeColor, string color, Dictionary<string, int> allPositions, Dictionary<int, string> allPositionsInverse)
         {
             List<string> checkSquares = new List<string>();
 
@@ -477,8 +485,8 @@ namespace Chess_AI
                     }
                 }
             }
-            //Console.WriteLine(string.Join(", ", checkSquares));
-            kingCantMoveHere = checkSquares;
+            // Console.WriteLine(string.Join(", ", checkSquares));
+            return checkSquares;
         }
 
         private void allPossibleMoves(string selectedPiece, string squarePosition)

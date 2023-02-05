@@ -8,4 +8,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="raylib" Version="4.2.0.2" />
+    <PackageReference Include="Raylib-cs" Version="4.2.0.1" />
+  </ItemGroup>
+
 </Project>

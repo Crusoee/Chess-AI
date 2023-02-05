@@ -1,4 +1,5 @@
 ﻿using Chess_AI;
+using Raylib_cs;
 
 Console.WriteLine(" - Would you like to be white or black?");
 string color;
@@ -39,4 +40,18 @@ while (true) {
     board.movePiece2();
 
     board.flipBoard2();
+
+    //Raylib.InitWindow(800, 480, "Hello World");
+
+    //while (!Raylib.WindowShouldClose())
+    //{
+    //    Raylib.BeginDrawing();
+    //    Raylib.ClearBackground(Color.WHITE);
+
+    //    Raylib.DrawText("Hello, world!", 12, 12, 20, Color.BLACK);
+
+    //    Raylib.EndDrawing();
+    //}
+
+    //Raylib.CloseWindow();
 }
